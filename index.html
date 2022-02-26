@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="slide.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documen</title>
+</head>
+<body>
+    <div class="slide">
+        <div class="slides">
+        
+            <div id="voltar" class="btn">
+                <i class="fas fa-chevron-left"></i>
+            </div> 
+
+            <div id="next" class="btn">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+
+            <div id="atual" class="imagens">
+                <img src="casa.png" alt="casa bro">
+            </div>
+
+            <div class="imagens">
+                <img src="casa2.png" alt="casa bro">
+            </div>
+
+            <div class="imagens">
+                <img src="casa3.png" alt="casa bro">
+            </div>
+
+            <div class="imagens">
+                <img src="casa4.jpg" alt="casa bro">
+            </div>
+
+            <div class="imagens">
+                <img src="casa5.png" alt="casa bro">
+            </div>
+
+
+        </div>
+        <div class="balls">
+        </div>
+    </div>
+</body>
+<script>
+    var balls = document.querySelector('.balls')
+    var quant = document.querySelectorAll('.slides .imagens')
+    var atual = 0
+    var imagens = document.getElementById('atual')
+    var next = document.getElementById('next')
+    var voltar = document.getElementById('voltar')
+    var rolar = true
+
+    for(let i=0; i < quant.length; i++){
+        var div = document.createElement('div')
+        div.id = i
+        balls.appendChild(div)
+    }
+
+    document.getElementById('0').classList.add('imgAtual')
+
+    var pos = document.querySelectorAll('.balls div')
+
+    for(let i=0; i < pos.length; i++ ){
+        pos[i].addEventListener('click', ()=>{
+            atual = pos[i].id
+            rolar = false
+            slide()
+        })
+    }
+
+    voltar.addEventListener('click', ()=>{
+        atual--
+        rolar = false
+        slide()
+    })
+
+    next.addEventListener('click', ()=>{
+        atual++
+        rolar = false
+        slide()
+    })
+
+    function slide(){
+        if(atual >= quant.length){
+            atual = 0
+        }
+
+        else if(atual < 0){
+            atual = quant.length-1
+        }
+        document.querySelector('.imgAtual').classList.remove('.imgAtual')
+        imagens.style.marginLeft = -1024*atual+'px'
+        document.getElementById(atual).classList.add('imgAtual')
+
+    }
+    setInterval(()=>{
+        if(rolar){
+            atual++
+            slide()
+
+        }
+        else{
+            rolar = true
+        }
+    },10000)
+
+</script>
+</html>
